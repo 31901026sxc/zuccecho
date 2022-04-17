@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CourseService {
-    String addCourse(BasicCourseDto CourseDto) throws EchoServiceException;//返回success||failed
+    Integer addCourse(BasicCourseDto CourseDto) throws EchoServiceException;//返回id
 
     String deleteCourse(BasicCourseDto CourseDto) throws EchoServiceException;//同上
 
