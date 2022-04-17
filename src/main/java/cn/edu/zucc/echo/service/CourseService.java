@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CourseService {
-    Integer addCourse(BasicCourseDto CourseDto) throws EchoServiceException;//返回id
+    Integer addCourse(BasicCourseDto courseDto) throws EchoServiceException;//返回id
 
-    String deleteCourse(BasicCourseDto CourseDto) throws EchoServiceException;//同上
+    String deleteCourse(BasicCourseDto courseDto) throws EchoServiceException;//同上
 
-    String modifyCourse(BasicCourseDto CourseDto) throws EchoServiceException;
+    String modifyCourse(BasicCourseDto courseDto) throws EchoServiceException;
 
-    BasicCourseDto searchCourse(Integer Courseid) throws EchoServiceException;//这是个样例，为以后可能的控制反转做铺垫
+    BasicCourseDto searchCourse(Integer courseId) throws EchoServiceException;//这是个样例，为以后可能的控制反转做铺垫
 }
