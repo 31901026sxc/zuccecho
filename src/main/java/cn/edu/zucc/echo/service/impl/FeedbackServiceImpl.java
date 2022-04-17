@@ -21,7 +21,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     private TpModelEntityRepository ModelEntityRepository;
 
     @Autowired
-    private EchoQuestionireEntityRepository echoQuestionireEntityRepository;
+    private EchoQuestionnaireEntityRepository echoquestionnaireEntityRepository;
     @Autowired
     private EchoQuestionEntityRepository echoQuestionEntityRepository;
     @Autowired
@@ -31,23 +31,23 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Autowired
     private EchoAnswerSheetEntityRepository answerSheetEntityRepository;
     @Override
-    public EchoQuestionireDto publishFeedback(QuestionireSeedDto dto) throws EchoServiceException {
-        Integer questioniresid = copyQuestionireFromModel(dto);
-        return queryQuestionireDetail(questioniresid);
+    public EchoQuestionnaireDto publishFeedback(QuestionnaireSeedDto dto) throws EchoServiceException {
+        Integer QuestionnaireSid = copyquestionnaireFromModel(dto);
+        return queryQuestionnaireDetail(QuestionnaireSid);
     }
 
     @Override
-    public EchoQuestionireDto queryQuestionireDetail(Integer questioniresid) throws EchoServiceException {
-        EchoQuestionireEntity questionire = this.echoQuestionireEntityRepository.getOne(questioniresid);
-        if (questionire == null) {
-            throw new EchoServiceException("没有找到反馈卷:" + questioniresid);
+    public EchoQuestionnaireDto queryQuestionnaireDetail(Integer questionnairesid) throws EchoServiceException {
+        EchoQuestionnaireEntity questionnaire = this.echoquestionnaireEntityRepository.getOne(questionnairesid);
+        if (questionnaire == null) {
+            throw new EchoServiceException("没有找到反馈卷:" + questionnairesid);
         }
 
-        EchoQuestionireDto EchoQuestionireDto = new EchoQuestionireDto(
-                questionire.get_class().getsid(), questionire.getName(),questionire.getStatus(), questionire.getMemo(),
-                questionire.getPublishTime(),
-                questionire.getDeadLine(),
-                questionire.getEchoQuestions().stream().map(
+        EchoQuestionnaireDto EchoQuestionnaireDto = new EchoQuestionnaireDto(
+                questionnaire.get_class().getSid(), questionnaire.getName(),questionnaire.getStatus(), questionnaire.getMemo(),
+                questionnaire.getPublishTime(),
+                questionnaire.getDeadLine(),
+                questionnaire.getEchoQuestions().stream().map(
                         EchoQuestionEntity -> {
                             return new EchoQuestionDto(
                                     EchoQuestionEntity.getId(), EchoQuestionEntity.getCategory(),
@@ -63,7 +63,7 @@ public class FeedbackServiceImpl implements FeedbackService {
                 ).collect(Collectors.toList())
         );
 
-        return EchoQuestionireDto;
+        return EchoQuestionnaireDto;
     }
 
     public Integer answerWorkSheet(EchoAnswerSheetDto echoAnswerSheetDto){
@@ -75,9 +75,9 @@ public class FeedbackServiceImpl implements FeedbackService {
          * 5.构造AnswerSheet对应的Entity然后入库
          * 6.返回入库后对应的AnswerSheet的sid
          */
-        EchoQuestionireEntity questionire = this.echoQuestionireEntityRepository.getOne(echoAnswerSheetDto.getQuestionireId());
-        if (questionire == null) {
-            throw new EchoServiceException("没有找到问卷:" + echoAnswerSheetDto.getQuestionireId());
+        EchoQuestionnaireEntity questionnaire = this.echoquestionnaireEntityRepository.getOne(echoAnswerSheetDto.getQuestionnaireId());
+        if (questionnaire == null) {
+            throw new EchoServiceException("没有找到问卷:" + echoAnswerSheetDto.getQuestionnaireId());
         }
 
         echoAnswerSheetDto.getAnswerDetail().stream().forEach(
@@ -87,7 +87,7 @@ public class FeedbackServiceImpl implements FeedbackService {
                 }
         );
 
-//        BeanUtils.copyProperties(echoAnswerSheetDto,questionire);
+//        BeanUtils.copyProperties(echoAnswerSheetDto,questionnaire);
         EchoAnswerSheetEntity echoAnswerSheetEntity = new EchoAnswerSheetEntity();
         BeanUtils.copyProperties(echoAnswerSheetDto,echoAnswerSheetEntity);
 
@@ -110,7 +110,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     }
 
-    private Integer copyQuestionireFromModel(QuestionireSeedDto dto) {
+    private Integer copyquestionnaireFromModel(QuestionnaireSeedDto dto) {
         TpModelEntity ModelEntity = this.ModelEntityRepository.getOne(dto.getModelid());
         if (ModelEntity == null) {
             throw new EchoServiceException("没有找到模板:" + dto.getModelid());
@@ -126,20 +126,20 @@ public class FeedbackServiceImpl implements FeedbackService {
             throw new EchoServiceException("没有找到教师:" + dto.getTeacherid());
         }
 
-        EchoQuestionireEntity questionireEntity = new EchoQuestionireEntity();
-        questionireEntity.setName(ModelEntity.getName());
-        questionireEntity.setMemo(ModelEntity.getMemo());
-        questionireEntity.set_class(classEntity);
-        questionireEntity.setStatus(Constants.Questionire_STATUS_PUBLISHED);
-        questionireEntity.setCreatorId(dto.getTeacherid());
-        questionireEntity.setCreateTime(Instant.now());
-        questionireEntity.setPublishTime(Instant.now());
-        questionireEntity.setDeadLine(dto.getDeadLine());
+        EchoQuestionnaireEntity questionnaireEntity = new EchoQuestionnaireEntity();
+        questionnaireEntity.setName(ModelEntity.getName());
+        questionnaireEntity.setMemo(ModelEntity.getMemo());
+        questionnaireEntity.set_class(classEntity);
+        questionnaireEntity.setStatus(Constants.Questionnaire_STATUS_PUBLISHED);
+        questionnaireEntity.setCreatorId(dto.getTeacherid());
+        questionnaireEntity.setCreateTime(Instant.now());
+        questionnaireEntity.setPublishTime(Instant.now());
+        questionnaireEntity.setDeadLine(dto.getDeadLine());
 
-        questionireEntity.setEchoQuestions(
+        questionnaireEntity.setEchoQuestions(
                 ModelEntity.getTpQuestions().stream().map(QuestionEntity -> {
                     EchoQuestionEntity question = new EchoQuestionEntity();
-                    question.setQuestionire(questionireEntity);
+                    question.setquestionnaire(questionnaireEntity);
                     question.setCategory(QuestionEntity.getCategory());
                     question.setRemark(QuestionEntity.getRemark());
                     question.setTitle(QuestionEntity.getTitle());
@@ -157,9 +157,9 @@ public class FeedbackServiceImpl implements FeedbackService {
                     return question;
                 }).collect(Collectors.toSet())
         );
-        this.echoQuestionireEntityRepository.save(questionireEntity);
+        this.echoquestionnaireEntityRepository.save(questionnaireEntity);
 
-        return questionireEntity.getId();
+        return questionnaireEntity.getId();
     }
 
 }

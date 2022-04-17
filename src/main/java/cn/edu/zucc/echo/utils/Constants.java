@@ -11,7 +11,7 @@ public class Constants {
 
     public static final String Model_STATUS_NORMAL = "normal";
 
-    public static final String Questionire_STATUS_PUBLISHED = "published";
+    public static final String Questionnaire_STATUS_PUBLISHED = "published";
 
     public static final String DATE_FORMAT_YYYYMMDDHHMMSS = "yyyy/MM/dd HH:mm:ss";
 

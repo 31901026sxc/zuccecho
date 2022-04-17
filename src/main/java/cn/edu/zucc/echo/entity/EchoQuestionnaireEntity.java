@@ -6,8 +6,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "echo_questionire")
-public class EchoQuestionireEntity {
+@Table(name = "echo_questionnaire")
+public class EchoQuestionnaireEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sid", nullable = false)
@@ -38,10 +38,10 @@ public class EchoQuestionireEntity {
     @Column(name = "create_time")
     private Instant createTime;
 
-    @OneToMany(mappedBy = "questionire")
+    @OneToMany(mappedBy = "questionnaire")
     private Set<EchoQuestionEntity> echoQuestions = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "questionire")
+    @OneToMany(mappedBy = "questionnaire")
     private Set<EchoAnswerSheetEntity> echoAnswerSheets = new LinkedHashSet<>();
 
     public Set<EchoAnswerSheetEntity> getEchoAnswerSheets() {

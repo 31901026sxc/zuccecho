@@ -5,7 +5,7 @@ import java.util.List;
 @Data
 public class EchoAnswerSheetDto implements Serializable {
     private Integer id;
-    private Integer questionireId;
+    private Integer questionnaireId;
     private Integer userId;
     private String startTime;
     private String submitTime;

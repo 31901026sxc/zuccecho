@@ -101,11 +101,11 @@ public class BasicClassEntity {
         this.code = code;
     }
 
-    public Integer getsid() {
+    public Integer getSid() {
         return sid;
     }
 
-    public void setsid(Integer sid) {
+    public void setSid(Integer sid) {
         this.sid = sid;
     }
 }

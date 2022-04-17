@@ -13,8 +13,8 @@ public class EchoQuestionEntity {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "questionire_id")
-    private EchoQuestionireEntity questionire;
+    @JoinColumn(name = "questionnaire_id")
+    private EchoQuestionnaireEntity questionnaire;
 
     @Column(name = "category")
     private String category;
@@ -82,12 +82,12 @@ public class EchoQuestionEntity {
         this.category = category;
     }
 
-    public EchoQuestionireEntity getQuestionire() {
-        return questionire;
+    public EchoQuestionnaireEntity getquestionnaire() {
+        return questionnaire;
     }
 
-    public void setQuestionire(EchoQuestionireEntity questionire) {
-        this.questionire = questionire;
+    public void setquestionnaire(EchoQuestionnaireEntity questionnaire) {
+        this.questionnaire = questionnaire;
     }
 
     public Integer getId() {

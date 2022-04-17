@@ -28,8 +28,8 @@ public class EchoAnswerSheetEntity {
     private String memo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "questionire_id")
-    private EchoQuestionireEntity questionire;
+    @JoinColumn(name = "questionnaire_id")
+    private EchoQuestionnaireEntity questionnaire;
 
     @OneToMany(mappedBy = "sheet")
     private Set<EchoAnswerSheetDetailEntity> echoAnswerSheetDetail = new LinkedHashSet<>();
@@ -42,12 +42,12 @@ public class EchoAnswerSheetEntity {
         this.echoAnswerSheetDetail = echoAnswerSheetDetail;
     }
 
-    /*public EchoQuestionireEntity getQuestionire() {
-        return questionire;
+    /*public EchoQuestionnaireEntity getquestionnaire() {
+        return questionnaire;
     }
 
-    public void setQuestionire(EchoQuestionireEntity questionire) {
-        this.questionire = questionire;
+    public void setquestionnaire(EchoQuestionnaireEntity questionnaire) {
+        this.questionnaire = questionnaire;
     }*/
 
     public String getMemo() {
@@ -82,12 +82,12 @@ public class EchoAnswerSheetEntity {
         this.student = student;
     }
 
-    public EchoQuestionireEntity getQuestionire() {
-        return questionire;
+    public EchoQuestionnaireEntity getquestionnaire() {
+        return questionnaire;
     }
 
-    public void setQuestionire(EchoQuestionireEntity questionire) {
-        this.questionire = questionire;
+    public void setquestionnaire(EchoQuestionnaireEntity questionnaire) {
+        this.questionnaire = questionnaire;
     }
 
     public Integer getsid() {

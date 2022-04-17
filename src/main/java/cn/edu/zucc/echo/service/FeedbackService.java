@@ -2,8 +2,8 @@ package cn.edu.zucc.echo.service;
 
 import cn.edu.zucc.echo.exception.EchoServiceException;
 import cn.edu.zucc.echo.form.EchoAnswerSheetDto;
-import cn.edu.zucc.echo.form.EchoQuestionireDto;
-import cn.edu.zucc.echo.form.QuestionireSeedDto;
+import cn.edu.zucc.echo.form.EchoQuestionnaireDto;
+import cn.edu.zucc.echo.form.QuestionnaireSeedDto;
 import org.springframework.stereotype.Service;
 
 
@@ -15,7 +15,7 @@ public interface FeedbackService {
      * @return
      * @throws EchoServiceException
      */
-    EchoQuestionireDto publishFeedback(QuestionireSeedDto dto) throws EchoServiceException;
+    EchoQuestionnaireDto publishFeedback(QuestionnaireSeedDto dto) throws EchoServiceException;
 
     /**
      * 返回给定的反馈问卷
@@ -23,7 +23,7 @@ public interface FeedbackService {
      * @return
      * @throws EchoServiceException
      */
-    EchoQuestionireDto queryQuestionireDetail(Integer questioniresid) throws EchoServiceException;
+    EchoQuestionnaireDto queryQuestionnaireDetail(Integer questioniresid) throws EchoServiceException;
 
     /**
      * 用户回答问卷

@@ -9,8 +9,8 @@ import java.time.Instant;
 public class BasicClassDto implements Serializable {
     private final String code;
     private final String name;
-    private final Integer coursesid;
-    private final Integer teachersid;
+    private final Integer coursesId;
+    private final Integer teachersId;
     private final Integer year;
     private final Integer semester;
     private final Integer isClose;

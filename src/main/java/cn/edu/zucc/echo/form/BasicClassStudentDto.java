@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 @Data
 public class BasicClassStudentDto implements Serializable {
-    private final Integer classsid;
-    private final Integer studentsid;
+    private final Integer classSid;
+    private final Integer studentSid;
 }

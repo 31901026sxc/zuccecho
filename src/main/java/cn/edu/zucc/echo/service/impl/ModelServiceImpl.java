@@ -91,4 +91,10 @@ public class ModelServiceImpl implements ModelService {
 
         return retObj;
     }
+
+    @Override
+    public String addAQuestion(TpQuestionDto questionDto, Integer modelId) throws EchoServiceException {
+        
+        return null;
+    }
 }

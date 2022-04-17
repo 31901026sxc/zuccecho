@@ -25,13 +25,13 @@ public enum ResponseMsg {
     Questionalreadyinthismodel("000414","该问题已经存在于该模板中" ),
     QuestionSheetNotFound("000415","该模板不存在该记录" ),
     NoCourseFound("000416","找不到课程信息" );
-    ;
-   private ResponseMsg(String code, String msg) {
+
+    ResponseMsg(String code, String msg) {
         this.code = code;
         this.msg = msg;
     }
-    private String code;
-    private String msg;
+    private final String code;
+    private final String msg;
     
 	public String getCode() {
 		return code;
