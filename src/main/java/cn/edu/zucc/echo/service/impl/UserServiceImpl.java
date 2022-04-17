@@ -1,19 +1,10 @@
 package cn.edu.zucc.echo.service.impl;
 
 import cn.edu.zucc.echo.entity.BasicUserEntity;
-import cn.edu.zucc.echo.entity.TpModelEntity;
-import cn.edu.zucc.echo.entity.TpQuestionEntity;
-import cn.edu.zucc.echo.entity.TpQuestionOptionEntity;
 import cn.edu.zucc.echo.exception.EchoServiceException;
 import cn.edu.zucc.echo.form.BasicUserDto;
-import cn.edu.zucc.echo.form.TpModelDto;
-import cn.edu.zucc.echo.form.TpQuestionDto;
-import cn.edu.zucc.echo.form.TpQuestionOptionDto;
 import cn.edu.zucc.echo.repository.BasicUserEntityRepository;
-import cn.edu.zucc.echo.repository.TpModelEntityRepository;
-import cn.edu.zucc.echo.service.QuestionService;
 import cn.edu.zucc.echo.service.UserService;
-import cn.edu.zucc.echo.utils.Constants;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
