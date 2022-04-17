@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-    String adduser(BasicUserDto userDto) throws EchoServiceException;//返回success||failed
+     Integer addUser(BasicUserDto userDto) throws EchoServiceException;//返回success||failed
 
-    String deleteuser(BasicUserDto userDto) throws EchoServiceException;//同上
+    String deleteUser(BasicUserDto userDto) throws EchoServiceException;//同上
 
-    String modifyuser(BasicUserDto userDto) throws EchoServiceException;
+    String modifyUser(BasicUserDto userDto) throws EchoServiceException;
 
-    BasicUserDto searchuser(Integer userid) throws EchoServiceException;//这是个样例，为以后可能的控制反转做铺垫
+    BasicUserDto searchUser(String userCode) throws EchoServiceException;//这是个样例，为以后可能的控制反转做铺垫
 }

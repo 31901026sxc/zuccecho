@@ -42,6 +42,7 @@ public class QuestionServiceImpl implements QuestionService {
             BeanUtils.copyProperties(questionOptionDto, questionOptionEntity);
             questionEntity.getTpQuestionOptions().add(questionOptionEntity);
         }
+
         this.QuestionEntityRepository.save(questionEntity);
         return questionEntity.getId();
     }
