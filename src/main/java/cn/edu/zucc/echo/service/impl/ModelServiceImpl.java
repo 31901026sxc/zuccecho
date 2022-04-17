@@ -103,7 +103,7 @@ public class ModelServiceImpl implements ModelService {
             throw new EchoServiceException("模板不存在.");
         }
         TpQuestionEntity question = new TpQuestionEntity();
-        BeanUtils.copyProperties(question,questionDto);
+        BeanUtils.copyProperties(questionDto,question);
         question.setModel(ModelEntityRepository.getOne(questionDto.getModelId()));
         QuestionEntityRepository.save(question);
         return "success";
