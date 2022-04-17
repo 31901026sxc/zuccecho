@@ -1,6 +1,7 @@
 package cn.edu.zucc.echo.controller;
 
 import cn.edu.zucc.echo.form.TpModelDto;
+import cn.edu.zucc.echo.form.TpQuestionDto;
 import cn.edu.zucc.echo.result.ResponseData;
 import cn.edu.zucc.echo.result.ResponseMsg;
 import cn.edu.zucc.echo.service.ModelService;
@@ -19,9 +20,9 @@ public class ModelApiController {
 
     @RequestMapping(value = "/view/{sid}", method = RequestMethod.GET)
     public ResponseData viewMode(@PathVariable("sid") Integer sid) {
-        TpModelDto modeldto = modelService.queryModelDetail(sid);
-        logger.warn("query Model:{}", modeldto);
-        return new ResponseData(ResponseMsg.SUCCESS, modeldto);
+        TpModelDto modelDto = modelService.queryModelDetail(sid);
+        logger.warn("query Model:{}", modelDto);
+        return new ResponseData(ResponseMsg.SUCCESS, modelDto);
     }
 
     /**
@@ -56,9 +57,18 @@ public class ModelApiController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData createModel(@RequestBody TpModelDto Model){
-        Integer Modelsid = modelService.createModel(Model);
-        logger.warn("Model {} created", Modelsid);
+        Integer ModelSid = modelService.createModel(Model);
+        logger.warn("Model {} created", ModelSid);
 
-        return new ResponseData(ResponseMsg.SUCCESS, Modelsid);
+        return new ResponseData(ResponseMsg.SUCCESS, ModelSid);
+    }
+    
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData AddAQuestion(@RequestBody TpQuestionDto Model){
+        String result = modelService.addAQuestion(Model);
+        logger.warn("Model {} created", result);
+
+        return new ResponseData(ResponseMsg.SUCCESS, result);
     }
 }

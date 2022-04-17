@@ -28,7 +28,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Integer createQuestion(TpQuestionDto questiondto) throws EchoServiceException {
         //检查
-        if (questiondto.getId() != 0) {
+        if (questiondto.getModelId() != 0) {
             throw new EchoServiceException("新建问题不能上传id");
         }
 

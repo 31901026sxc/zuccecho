@@ -8,6 +8,8 @@ import cn.edu.zucc.echo.form.TpQuestionDto;
 import cn.edu.zucc.echo.form.TpQuestionOptionDto;
 import cn.edu.zucc.echo.form.TpModelDto;
 import cn.edu.zucc.echo.repository.TpModelEntityRepository;
+import cn.edu.zucc.echo.repository.TpQuestionEntityRepository;
+import cn.edu.zucc.echo.repository.TpQuestionOptionEntityRepository;
 import cn.edu.zucc.echo.service.ModelService;
 import cn.edu.zucc.echo.utils.Constants;
 import org.springframework.beans.BeanUtils;
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
 public class ModelServiceImpl implements ModelService {
     @Autowired
     private TpModelEntityRepository ModelEntityRepository;
+    @Autowired
+    private TpQuestionEntityRepository QuestionEntityRepository;
 
     @Override
     public Integer createModel(TpModelDto modeldto) throws EchoServiceException {
@@ -93,8 +97,15 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public String addAQuestion(TpQuestionDto questionDto, Integer modelId) throws EchoServiceException {
-        
-        return null;
+    public String addAQuestion(TpQuestionDto questionDto) throws EchoServiceException {
+        TpModelEntity ModelEntity = this.ModelEntityRepository.getOne(questionDto.getModelId());
+        if (ModelEntity == null) {
+            throw new EchoServiceException("模板不存在.");
+        }
+        TpQuestionEntity question = new TpQuestionEntity();
+        BeanUtils.copyProperties(question,questionDto);
+        question.setModel(ModelEntityRepository.getOne(questionDto.getModelId()));
+        QuestionEntityRepository.save(question);
+        return "success";
     }
 }

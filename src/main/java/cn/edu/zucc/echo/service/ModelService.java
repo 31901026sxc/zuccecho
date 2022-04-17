@@ -25,5 +25,5 @@ public interface ModelService {
 
 
 
-    String addAQuestion(TpQuestionDto questionDto , Integer modelid) throws EchoServiceException;
+    String addAQuestion(TpQuestionDto questionDto) throws EchoServiceException;
 }

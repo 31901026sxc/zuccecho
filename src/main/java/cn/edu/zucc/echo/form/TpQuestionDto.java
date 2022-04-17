@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class TpQuestionDto implements Serializable {
-    private final int id;
+    private final Integer modelId;
     private final String category;
     private final String title;
     private final String isRequired;
