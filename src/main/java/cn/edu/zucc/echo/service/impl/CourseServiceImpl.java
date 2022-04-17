@@ -1,7 +1,6 @@
 package cn.edu.zucc.echo.service.impl;
 
 import cn.edu.zucc.echo.entity.BasicCourseEntity;
-import cn.edu.zucc.echo.entity.TpModelEntity;
 import cn.edu.zucc.echo.exception.EchoServiceException;
 import cn.edu.zucc.echo.form.BasicCourseDto;
 import cn.edu.zucc.echo.repository.BasicCourseEntityRepository;
