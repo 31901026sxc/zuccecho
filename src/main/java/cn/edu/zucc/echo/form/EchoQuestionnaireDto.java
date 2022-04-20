@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 public class EchoQuestionnaireDto implements Serializable {
-    private final Integer classid;
+    private final Integer classId;
     private final String name;
     private final String status;
     private final String memo;

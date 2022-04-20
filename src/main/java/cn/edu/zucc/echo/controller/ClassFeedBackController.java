@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/feedback")
+@RequestMapping("echo")
 public class ClassFeedBackController {
     private final Logger logger = LoggerFactory.getLogger(ClassFeedBackController.class);
 
@@ -20,9 +20,9 @@ public class ClassFeedBackController {
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData publishFeedback(@RequestBody QuestionnaireSeedDto questionire1){
-        EchoQuestionnaireDto questionire = feedbackService.publishFeedback(questionire1);
-        return new ResponseData(ResponseMsg.SUCCESS, questionire);
+    public ResponseData publishFeedback(@RequestBody QuestionnaireSeedDto seed){
+        EchoQuestionnaireDto questionnaire = feedbackService.publishFeedback(seed);
+        return new ResponseData(ResponseMsg.SUCCESS, questionnaire);
     }
 
     @RequestMapping(value = "/view/{sid}", method = RequestMethod.GET)

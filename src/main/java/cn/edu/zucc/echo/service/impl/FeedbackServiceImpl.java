@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -30,17 +32,19 @@ public class FeedbackServiceImpl implements FeedbackService {
     private BasicUserEntityRepository userEntityRepository;
     @Autowired
     private EchoAnswerSheetEntityRepository answerSheetEntityRepository;
+    @Autowired
+    private ClassServiceImpl classServiceImpl;
     @Override
     public EchoQuestionnaireDto publishFeedback(QuestionnaireSeedDto dto) throws EchoServiceException {
-        Integer QuestionnaireSid = copyquestionnaireFromModel(dto);
+        Integer QuestionnaireSid = copyQuestionnaireFromMode(dto);
         return queryQuestionnaireDetail(QuestionnaireSid);
     }
 
     @Override
-    public EchoQuestionnaireDto queryQuestionnaireDetail(Integer questionnairesid) throws EchoServiceException {
-        EchoQuestionnaireEntity questionnaire = this.echoquestionnaireEntityRepository.getOne(questionnairesid);
+    public EchoQuestionnaireDto queryQuestionnaireDetail(Integer questionnaireSid) throws EchoServiceException {
+        EchoQuestionnaireEntity questionnaire = this.echoquestionnaireEntityRepository.getOne(questionnaireSid);
         if (questionnaire == null) {
-            throw new EchoServiceException("没有找到反馈卷:" + questionnairesid);
+            throw new EchoServiceException("没有找到反馈卷:" + questionnaireSid);
         }
 
         EchoQuestionnaireDto EchoQuestionnaireDto = new EchoQuestionnaireDto(
@@ -110,15 +114,42 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     }
 
-    private Integer copyquestionnaireFromModel(QuestionnaireSeedDto dto) {
+    @Override
+    public List<BasicUserEntity> getNotAnswered(Integer questionnaireId) {
+        EchoQuestionnaireEntity questionnaire = this.echoquestionnaireEntityRepository.getOne(questionnaireId);
+        if (questionnaire == null) {
+            throw new EchoServiceException("没有找到问卷:" + questionnaireId);
+        }
+        List<BasicUserEntity> student = classServiceImpl.findAllStudent(questionnaire.get_class().getSid());
+        List<BasicUserEntity> answered = getAnswered(questionnaireId);
+        student.removeAll(answered);
+        return student;
+    }
+
+    @Override
+    public List<BasicUserEntity> getAnswered(Integer questionnaireId) {
+        EchoQuestionnaireEntity questionnaire = this.echoquestionnaireEntityRepository.getOne(questionnaireId);
+        if (questionnaire == null) {
+            throw new EchoServiceException("没有找到问卷:" + questionnaireId);
+        }
+        List<Integer> list = answerSheetEntityRepository.findAllByQuestionnaireId(questionnaireId);
+        List<BasicUserEntity> student = new ArrayList<>();
+        for (int e:list
+             ) {
+            student.add(userEntityRepository.getOne(e));
+        }
+        return student;
+    }
+
+    private Integer copyQuestionnaireFromMode(QuestionnaireSeedDto dto) {
         TpModelEntity ModelEntity = this.ModelEntityRepository.getOne(dto.getModelid());
         if (ModelEntity == null) {
             throw new EchoServiceException("没有找到模板:" + dto.getModelid());
         }
 
-        BasicClassEntity classEntity = this.classEntityRepository.getOne(dto.getClassid());
+        BasicClassEntity classEntity = this.classEntityRepository.getOne(dto.getClassId());
         if (classEntity == null) {
-            throw new EchoServiceException("没有找到班级:" + dto.getClassid());
+            throw new EchoServiceException("没有找到班级:" + dto.getClassId());
         }
 
         BasicUserEntity teacherEntity = this.userEntityRepository.getOne(dto.getTeacherid());

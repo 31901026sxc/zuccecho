@@ -4,10 +4,10 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.List;
+
 @Data
 public class QuestionnaireSeedDto implements Serializable {
-    private final Integer classid;
+    private final Integer classId;
     private final String name;
     private final Integer modelid;
     private final Integer teacherid;
