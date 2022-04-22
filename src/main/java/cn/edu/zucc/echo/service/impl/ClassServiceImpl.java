@@ -1,6 +1,7 @@
 package cn.edu.zucc.echo.service.impl;
 
 import cn.edu.zucc.echo.entity.BasicUserEntity;
+import cn.edu.zucc.echo.form.BasicClassStudentDto;
 import cn.edu.zucc.echo.repository.BasicClassStudentEntityRepository;
 import cn.edu.zucc.echo.repository.BasicUserEntityRepository;
 import cn.edu.zucc.echo.service.ClassService;
@@ -25,4 +26,12 @@ public class ClassServiceImpl implements ClassService {
         }
         return list;
     }
+
+    @Override
+    public Integer addStudents(List<BasicClassStudentDto> classStudentDtos) {
+        //TODO 将指定学生课程信息序列存入BasicClassStudent表
+        return null;
+    }
+
+
 }

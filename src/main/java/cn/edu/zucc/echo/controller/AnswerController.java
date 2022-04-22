@@ -3,7 +3,7 @@ package cn.edu.zucc.echo.controller;
 import cn.edu.zucc.echo.form.EchoAnswerSheetDto;
 import cn.edu.zucc.echo.result.ResponseData;
 import cn.edu.zucc.echo.result.ResponseMsg;
-import cn.edu.zucc.echo.service.FeedbackService;
+import cn.edu.zucc.echo.service.EchoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class AnswerController {
     private final Logger logger = LoggerFactory.getLogger(AnswerController.class);
 
     @Autowired
-    private FeedbackService feedbackService;
+    private EchoService feedbackService;
 
     /**
      * 用户提交答卷内容

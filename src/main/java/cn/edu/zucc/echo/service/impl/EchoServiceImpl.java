@@ -4,7 +4,7 @@ import cn.edu.zucc.echo.entity.*;
 import cn.edu.zucc.echo.exception.EchoServiceException;
 import cn.edu.zucc.echo.form.*;
 import cn.edu.zucc.echo.repository.*;
-import cn.edu.zucc.echo.service.FeedbackService;
+import cn.edu.zucc.echo.service.EchoService;
 import cn.edu.zucc.echo.utils.Constants;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class FeedbackServiceImpl implements FeedbackService {
+public class EchoServiceImpl implements EchoService {
     @Autowired
     private TpModelEntityRepository ModelEntityRepository;
 
@@ -35,7 +35,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Autowired
     private ClassServiceImpl classServiceImpl;
     @Override
-    public EchoQuestionnaireDto publishFeedback(QuestionnaireSeedDto dto) throws EchoServiceException {
+    public EchoQuestionnaireDto publishQuestionnaire(QuestionnaireSeedDto dto) throws EchoServiceException {
         Integer QuestionnaireSid = copyQuestionnaireFromMode(dto);
         return queryQuestionnaireDetail(QuestionnaireSid);
     }
@@ -139,6 +139,12 @@ public class FeedbackServiceImpl implements FeedbackService {
             student.add(userEntityRepository.getOne(e));
         }
         return student;
+    }
+
+    @Override
+    public String remind(List<BasicUserEntity> undone,EchoQuestionnaireEntity questionnaire) {
+        //TODO 把BasicUserEntity和EchoQuestionnaireEntity 转化为 RemindDto 然后发到前端
+        return null;
     }
 
     private Integer copyQuestionnaireFromMode(QuestionnaireSeedDto dto) {

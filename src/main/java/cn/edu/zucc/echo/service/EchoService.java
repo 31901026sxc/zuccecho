@@ -1,6 +1,7 @@
 package cn.edu.zucc.echo.service;
 
 import cn.edu.zucc.echo.entity.BasicUserEntity;
+import cn.edu.zucc.echo.entity.EchoQuestionnaireEntity;
 import cn.edu.zucc.echo.exception.EchoServiceException;
 import cn.edu.zucc.echo.form.EchoAnswerSheetDto;
 import cn.edu.zucc.echo.form.EchoQuestionnaireDto;
@@ -11,14 +12,14 @@ import java.util.List;
 
 
 @Service
-public interface FeedbackService {
+public interface EchoService {
     /**
      * 教师发布一个反馈问卷
      * @param dto
      * @return
      * @throws EchoServiceException
      */
-    EchoQuestionnaireDto publishFeedback(QuestionnaireSeedDto dto) throws EchoServiceException;
+    EchoQuestionnaireDto publishQuestionnaire(QuestionnaireSeedDto dto) throws EchoServiceException;
 
     /**
      * 返回给定的反馈问卷
@@ -45,4 +46,7 @@ public interface FeedbackService {
     //    获得已答题的学生
     List<BasicUserEntity> getAnswered(Integer questionnaireId);
 
+
+
+    String remind(List<BasicUserEntity> undone, EchoQuestionnaireEntity questionnaire);
 }
