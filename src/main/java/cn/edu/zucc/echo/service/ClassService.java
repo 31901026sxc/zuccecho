@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public interface ClassService {
     List<BasicUserEntity> findAllStudent(int classId);
-    //TODO 未使用
+
     List<Integer> addStudents(List<BasicClassStudentDto> classStudentDto);
 
     Integer addClass(BasicClassDto classDto) throws EchoServiceException;//返回id

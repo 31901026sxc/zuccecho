@@ -1,6 +1,7 @@
 package cn.edu.zucc.echo.controller;
 
 import cn.edu.zucc.echo.form.BasicClassDto;
+import cn.edu.zucc.echo.form.BasicClassStudentDto;
 import cn.edu.zucc.echo.form.BasicCourseDto;
 import cn.edu.zucc.echo.result.ResponseData;
 import cn.edu.zucc.echo.result.ResponseMsg;
@@ -10,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/class")
@@ -46,6 +49,13 @@ public class ClassController {
     public ResponseData modifyCourse(@RequestBody BasicClassDto classDto) {
         String result = classService.modifyClass(classDto);
         logger.warn("Class {} modify", result);
+        return new ResponseData(ResponseMsg.SUCCESS, result);
+    }
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData addStudents(@RequestBody List<BasicClassStudentDto> classStudentDto) {
+        List<Integer> result = classService.addStudents(classStudentDto);
+        logger.warn("student {} add", result) ;
         return new ResponseData(ResponseMsg.SUCCESS, result);
     }
 }
