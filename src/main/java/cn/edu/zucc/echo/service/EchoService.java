@@ -6,6 +6,7 @@ import cn.edu.zucc.echo.exception.EchoServiceException;
 import cn.edu.zucc.echo.form.EchoAnswerSheetDto;
 import cn.edu.zucc.echo.form.EchoQuestionnaireDto;
 import cn.edu.zucc.echo.form.QuestionnaireSeedDto;
+import org.quartz.SchedulerException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface EchoService {
      * @return
      * @throws EchoServiceException
      */
-    EchoQuestionnaireDto publishQuestionnaire(QuestionnaireSeedDto dto) throws EchoServiceException;
+    EchoQuestionnaireDto publishQuestionnaire(QuestionnaireSeedDto dto) throws EchoServiceException, SchedulerException, InterruptedException;
 
     /**
      * 返回给定的反馈问卷

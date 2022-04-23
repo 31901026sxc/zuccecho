@@ -3,12 +3,13 @@ package cn.edu.zucc.echo.quartz;
 import cn.edu.zucc.echo.entity.EchoQuestionnaireEntity;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
-
+@Service
 public class SetTrigger {
-    public  void quartzStart(EchoQuestionnaireEntity questionnaire) throws SchedulerException, InterruptedException {
+    public  void setTrack(EchoQuestionnaireEntity questionnaire) throws SchedulerException, InterruptedException {
         // 1、创建调度器Scheduler
         SchedulerFactory schedulerFactory = new StdSchedulerFactory();
         Scheduler scheduler = schedulerFactory.getScheduler();
@@ -23,16 +24,16 @@ public class SetTrigger {
         Date endDate = new Date();
         endDate.setTime(questionnaire.getDeadLine().toEpochMilli());
 
-        CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("undoneTrack" + questionnaire.getId(), "Track")
+        Trigger simpleTrigger = TriggerBuilder.newTrigger().withIdentity("undoneTrack" + questionnaire.getId(), "Track")
                 .usingJobData("trigger1", "这是jobDetail1的trigger")
                 .startNow()//立即生效
                 .startAt(startDate)
                 .endAt(endDate)
-                .withSchedule(CronScheduleBuilder.cronSchedule("* 30 10 ? * 2-6 2018"))
+                .withSchedule(SimpleScheduleBuilder.repeatHourlyForever(2))
                 .build();
 
         //4、执行
-        scheduler.scheduleJob(jobDetail, cronTrigger);
+        scheduler.scheduleJob(jobDetail, simpleTrigger);
         System.out.println("--------scheduler start ! ------------");
         scheduler.start();
         System.out.println("--------scheduler shutdown ! ------------");

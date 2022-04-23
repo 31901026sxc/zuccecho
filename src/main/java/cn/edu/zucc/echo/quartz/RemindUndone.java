@@ -23,7 +23,7 @@ public class RemindUndone implements Job {
                 .getNotAnswered(jobExecutionContext.getJobDetail()
                 .getJobDataMap()
                 .getIntValue("questionnaireId"));
-
+        System.out.println(undone.toString());
     }
 
 

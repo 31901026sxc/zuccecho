@@ -2,6 +2,7 @@ package cn.edu.zucc.echo.service.impl;
 
 import cn.edu.zucc.echo.entity.BasicUserEntity;
 import cn.edu.zucc.echo.form.BasicClassStudentDto;
+import cn.edu.zucc.echo.quartz.SetTrigger;
 import cn.edu.zucc.echo.repository.BasicClassStudentEntityRepository;
 import cn.edu.zucc.echo.repository.BasicUserEntityRepository;
 import cn.edu.zucc.echo.service.ClassService;
@@ -17,6 +18,7 @@ public class ClassServiceImpl implements ClassService {
     private BasicClassStudentEntityRepository studentEntityRepository;
     @Autowired
     private BasicUserEntityRepository userEntityRepository;
+
     @Override
     public List<BasicUserEntity> findAllStudent(int classId) {
         List<BasicUserEntity> list = new ArrayList();

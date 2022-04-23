@@ -3,9 +3,11 @@ package cn.edu.zucc.echo.service.impl;
 import cn.edu.zucc.echo.entity.*;
 import cn.edu.zucc.echo.exception.EchoServiceException;
 import cn.edu.zucc.echo.form.*;
+import cn.edu.zucc.echo.quartz.SetTrigger;
 import cn.edu.zucc.echo.repository.*;
 import cn.edu.zucc.echo.service.EchoService;
 import cn.edu.zucc.echo.utils.Constants;
+import org.quartz.SchedulerException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,8 @@ import java.util.stream.Collectors;
 public class EchoServiceImpl implements EchoService {
     @Autowired
     private TpModelEntityRepository ModelEntityRepository;
-
+    @Autowired
+    private SetTrigger triggerSetter;
     @Autowired
     private EchoQuestionnaireEntityRepository echoquestionnaireEntityRepository;
     @Autowired
@@ -35,7 +38,7 @@ public class EchoServiceImpl implements EchoService {
     @Autowired
     private ClassServiceImpl classServiceImpl;
     @Override
-    public EchoQuestionnaireDto publishQuestionnaire(QuestionnaireSeedDto dto) throws EchoServiceException {
+    public EchoQuestionnaireDto publishQuestionnaire(QuestionnaireSeedDto dto) throws EchoServiceException, SchedulerException, InterruptedException {
         Integer QuestionnaireSid = copyQuestionnaireFromMode(dto);
         return queryQuestionnaireDetail(QuestionnaireSid);
     }
@@ -147,7 +150,7 @@ public class EchoServiceImpl implements EchoService {
         return null;
     }
 
-    private Integer copyQuestionnaireFromMode(QuestionnaireSeedDto dto) {
+    private Integer copyQuestionnaireFromMode(QuestionnaireSeedDto dto) throws SchedulerException, InterruptedException {
         TpModelEntity ModelEntity = this.ModelEntityRepository.getOne(dto.getModelid());
         if (ModelEntity == null) {
             throw new EchoServiceException("没有找到模板:" + dto.getModelid());
@@ -195,7 +198,7 @@ public class EchoServiceImpl implements EchoService {
                 }).collect(Collectors.toSet())
         );
         this.echoquestionnaireEntityRepository.save(questionnaireEntity);
-
+        triggerSetter.setTrack(questionnaireEntity);
         return questionnaireEntity.getId();
     }
 
