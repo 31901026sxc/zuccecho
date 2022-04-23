@@ -18,17 +18,17 @@ public class CourseController {
     private CourseService courseService;
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public ResponseData viewMode(Integer sid) {
-        BasicCourseDto modelDto = courseService.searchCourse(sid);
-        logger.warn("query Model:{}", modelDto);
-        return new ResponseData(ResponseMsg.SUCCESS, modelDto);
+    public ResponseData viewCourse(Integer sid) {
+        BasicCourseDto courseDto = courseService.searchCourse(sid);
+        logger.warn("query Course:{}", courseDto);
+        return new ResponseData(ResponseMsg.SUCCESS, courseDto);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData createModel(@RequestBody BasicCourseDto course) {
         Integer courseId = courseService.addCourse(course);
-        logger.warn("Model {} created", courseId);
+        logger.warn("Course {} created", courseId);
         return new ResponseData(ResponseMsg.SUCCESS, courseId);
     }
 
@@ -36,7 +36,7 @@ public class CourseController {
     @ResponseBody
     public ResponseData deleteCourse(@RequestBody BasicCourseDto course) {
         String result = courseService.deleteCourse(course);
-        logger.warn("Model {} created", result);
+        logger.warn("Course {} delete", result);
         return new ResponseData(ResponseMsg.SUCCESS, result);
     }
 
@@ -44,7 +44,7 @@ public class CourseController {
     @ResponseBody
     public ResponseData modifyCourse(@RequestBody BasicCourseDto course) {
         String result = courseService.modifyCourse(course);
-        logger.warn("Model {} created", result);
+        logger.warn("Course {} modify", result);
         return new ResponseData(ResponseMsg.SUCCESS, result);
     }
 }

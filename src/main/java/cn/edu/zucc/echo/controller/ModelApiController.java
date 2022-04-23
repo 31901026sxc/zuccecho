@@ -67,7 +67,7 @@ public class ModelApiController {
     @ResponseBody
     public ResponseData AddAQuestion(@RequestBody TpQuestionDto Model){
         String result = modelService.addAQuestion(Model);
-        logger.warn("Model {} created", result);
+        logger.warn("Model {} add", result);
 
         return new ResponseData(ResponseMsg.SUCCESS, result);
     }

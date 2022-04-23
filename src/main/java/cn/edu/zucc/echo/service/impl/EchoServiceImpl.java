@@ -145,9 +145,14 @@ public class EchoServiceImpl implements EchoService {
     }
 
     @Override
-    public String remind(List<BasicUserEntity> undone,EchoQuestionnaireEntity questionnaire) {
-        //TODO 把BasicUserEntity和EchoQuestionnaireEntity 转化为 RemindDto 然后发到前端
-        return null;
+    public  List<RemindDto> remind(List<BasicUserEntity> undone,EchoQuestionnaireEntity questionnaire) {
+        List<RemindDto> r = new ArrayList<RemindDto>();
+        undone.forEach(user ->{
+            RemindDto remindDto = new RemindDto(user.getsid(),user.getName(),
+                    questionnaire.getName(),questionnaire.getDeadLine());
+            r.add(remindDto);
+        });
+        return r;
     }
 
     private Integer copyQuestionnaireFromMode(QuestionnaireSeedDto dto) throws SchedulerException, InterruptedException {
