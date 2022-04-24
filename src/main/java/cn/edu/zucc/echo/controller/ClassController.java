@@ -10,6 +10,8 @@ import cn.edu.zucc.echo.service.CourseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +23,7 @@ public class ClassController {
     @Autowired
     private ClassService classService;
 
+    @CachePut(key = "viewClass")
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public ResponseData viewClass(Integer sid) {
         BasicClassDto classDto = classService.searchClass(sid);
@@ -28,6 +31,7 @@ public class ClassController {
         return new ResponseData(ResponseMsg.SUCCESS, classDto);
     }
 
+    @CachePut(key = "#classId")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData createModel(@RequestBody BasicClassDto classDto) {
@@ -36,6 +40,7 @@ public class ClassController {
         return new ResponseData(ResponseMsg.SUCCESS, classId);
     }
 
+    @CacheEvict(key = "#classDto.getCode()")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData deleteCourse(@RequestBody BasicClassDto classDto) {
@@ -44,6 +49,7 @@ public class ClassController {
         return new ResponseData(ResponseMsg.SUCCESS, result);
     }
 
+    @CachePut(key = "#classDto.getCode()")
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData modifyCourse(@RequestBody BasicClassDto classDto) {
