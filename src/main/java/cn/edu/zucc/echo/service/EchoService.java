@@ -46,6 +46,7 @@ public interface EchoService {
     //    获得已答题的学生
     List<BasicUserEntity> getAnswered(Integer questionnaireId);
 
-    //TODO 未使用
+
+
     List<RemindDto> remind(List<BasicUserEntity> undone, EchoQuestionnaireEntity questionnaire);
 }

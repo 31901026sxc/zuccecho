@@ -10,6 +10,8 @@ import cn.edu.zucc.echo.utils.Constants;
 import org.quartz.SchedulerException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -37,6 +39,8 @@ public class EchoServiceImpl implements EchoService {
     private EchoAnswerSheetEntityRepository answerSheetEntityRepository;
     @Autowired
     private ClassServiceImpl classServiceImpl;
+    @Autowired
+    private RedisTemplate redisTemplate;
     @Override
     public EchoQuestionnaireDto publishQuestionnaire(QuestionnaireSeedDto dto) throws EchoServiceException, SchedulerException, InterruptedException {
         Integer QuestionnaireSid = copyQuestionnaireFromMode(dto);
@@ -116,7 +120,7 @@ public class EchoServiceImpl implements EchoService {
 //        return questionEntity.getId();
 
     }
-
+    @CachePut(key = "#questionnaireId"+"shouldanswer",value = "#student")
     @Override
     public List<BasicUserEntity> getNotAnswered(Integer questionnaireId) {
         EchoQuestionnaireEntity questionnaire = this.echoquestionnaireEntityRepository.getOne(questionnaireId);
@@ -128,7 +132,7 @@ public class EchoServiceImpl implements EchoService {
         student.removeAll(answered);
         return student;
     }
-
+    @CachePut(key = "#questionnaireId"+"answered",value = "#student")
     @Override
     public List<BasicUserEntity> getAnswered(Integer questionnaireId) {
         EchoQuestionnaireEntity questionnaire = this.echoquestionnaireEntityRepository.getOne(questionnaireId);

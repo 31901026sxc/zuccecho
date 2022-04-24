@@ -19,7 +19,7 @@ public class ModelApiController {
     private ModelService modelService;
 
     @RequestMapping(value = "/view/{sid}", method = RequestMethod.GET)
-    public ResponseData viewMode(@PathVariable("sid") Integer sid) {
+    public ResponseData viewModel(@PathVariable("sid") Integer sid) {
         TpModelDto modelDto = modelService.queryModelDetail(sid);
         logger.warn("query Model:{}", modelDto);
         return new ResponseData(ResponseMsg.SUCCESS, modelDto);

@@ -27,7 +27,7 @@ public class CourseController {
         return new ResponseData(ResponseMsg.SUCCESS, courseDto);
     }
 
-    @CachePut(key = "#courseId")
+    @CachePut(key = "#course.getCode()")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData createModel(@RequestBody BasicCourseDto course) {

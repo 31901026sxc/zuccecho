@@ -1,11 +1,8 @@
 package cn.edu.zucc.echo.quartz;
-
 import cn.edu.zucc.echo.entity.EchoQuestionnaireEntity;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
 import java.util.Date;
 @Service
 public class SetTrigger {
@@ -34,9 +31,7 @@ public class SetTrigger {
 
         //4、执行
         scheduler.scheduleJob(jobDetail, simpleTrigger);
-        System.out.println("--------scheduler start ! ------------");
         scheduler.start();
-        System.out.println("--------scheduler shutdown ! ------------");
 
 
     }
