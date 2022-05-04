@@ -6,13 +6,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author pengbin
- * @version 1.0
- * @date 2022/04/27 22:06
- */
+
 @Configuration
-public class ZuccEchoConfig {
+public class ZuccEchoConfig {//这里是创建通道的地方
     @Bean
     public FanoutExchange fanout() {
         return new FanoutExchange(Constants.EX_FANOUT);

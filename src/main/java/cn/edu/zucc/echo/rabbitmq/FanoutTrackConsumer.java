@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-/**
- * @author pengbin
- * @version 1.0
- */
+
 @RabbitListener(queues = "#{fanoutTrackQue.name}")
 public class FanoutTrackConsumer {
     private final Logger logger = LoggerFactory.getLogger(FanoutTrackConsumer.class);

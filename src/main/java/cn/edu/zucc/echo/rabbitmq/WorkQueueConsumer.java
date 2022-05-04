@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-/**
- * @author pengbin
- * @version 1.0
- */
+
 @RabbitListener(queues = {Constants.QUE_WORK_QUEUE})
 public class WorkQueueConsumer {
     private final Logger logger = LoggerFactory.getLogger(WorkQueueConsumer.class);

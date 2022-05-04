@@ -8,6 +8,8 @@ import cn.edu.zucc.echo.repository.*;
 import cn.edu.zucc.echo.service.EchoService;
 import cn.edu.zucc.echo.utils.Constants;
 import org.quartz.SchedulerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class EchoServiceImpl implements EchoService {
+    private final Logger logger = LoggerFactory.getLogger(EchoServiceImpl.class);
     @Autowired
     private TpModelEntityRepository ModelEntityRepository;
     @Autowired
@@ -49,13 +52,19 @@ public class EchoServiceImpl implements EchoService {
 
     @Override
     public EchoQuestionnaireDto queryQuestionnaireDetail(Integer questionnaireSid) throws EchoServiceException {
+        EchoQuestionnaireDto questionnaireDto = (EchoQuestionnaireDto)redisTemplate.opsForValue().get(EchoQuestionnaireDto.cacheKey(questionnaireSid));
+        //优先获取缓存
+        if(questionnaireDto != null){
+            logger.warn("load paper[{}][{}] from cache.", questionnaireDto.getId(), questionnaireDto.getName());
+            return questionnaireDto;
+        }
         EchoQuestionnaireEntity questionnaire = this.echoquestionnaireEntityRepository.getOne(questionnaireSid);
         if (questionnaire == null) {
             throw new EchoServiceException("没有找到反馈卷:" + questionnaireSid);
         }
 
         EchoQuestionnaireDto EchoQuestionnaireDto = new EchoQuestionnaireDto(
-                questionnaire.get_class().getSid(), questionnaire.getName(),questionnaire.getStatus(), questionnaire.getMemo(),
+                null,questionnaire.get_class().getSid(), questionnaire.getName(),questionnaire.getStatus(), questionnaire.getMemo(),
                 questionnaire.getPublishTime(),
                 questionnaire.getDeadLine(),
                 questionnaire.getEchoQuestions().stream().map(

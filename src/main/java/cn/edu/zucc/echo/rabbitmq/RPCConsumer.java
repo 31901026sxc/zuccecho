@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-/**
- * @author pengbin
- * @version 1.0
- */
+
 @RabbitListener(queues = {Constants.QUE_RPC_QUEUE})
 public class RPCConsumer {
     private final Logger logger = LoggerFactory.getLogger(RPCConsumer.class);

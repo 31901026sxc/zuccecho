@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-/**
- * @author pengbin
- * @version 1.0
- */
+
 @RabbitListener(queues = "#{topicCollegeStatQue.name}")
 public class TopicCollegeConsumer {
     private final Logger logger = LoggerFactory.getLogger(TopicCollegeConsumer.class);

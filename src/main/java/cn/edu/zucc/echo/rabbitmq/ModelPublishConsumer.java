@@ -7,10 +7,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-/**
- * @author pengbin
- * @version 1.0
- */
+
 @Component
 @RabbitListener(queues = {Constants.QUE_SIMPLE})
 public class ModelPublishConsumer {

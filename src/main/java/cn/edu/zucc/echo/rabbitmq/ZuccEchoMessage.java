@@ -6,10 +6,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author pengbin
- * @version 1.0
- */
+
 public class ZuccEchoMessage implements Serializable {
     public static final String CATEGORY_MODEL_PUB = "m_pub";
     public static final String CATEGORY_ANSWER = "m_answer";
